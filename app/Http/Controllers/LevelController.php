@@ -1,13 +1,10 @@
 <?php
 
-use App\Http\Controllers\LevelController;
-use Illuminate\Support\Facades\Route;
+namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 
-Route ::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/level', [LevelController::class, 'index']);
-
-
+class LevelController extends Controller
+{
+    //
+}
