@@ -27,5 +27,6 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
             'level_id' => $request->level_id
         ]);
+        return redirect('user');
     }
 }
