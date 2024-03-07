@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     public function index()
     {
-        $user = UserModel::find(1); //ambil semua data dari tabel m_user
+        $user = UserModel::where('level_id', 1)->first(); //ambil semua data dari tabel m_user
         return view('user', ['data' => $user]);
     }
 }
