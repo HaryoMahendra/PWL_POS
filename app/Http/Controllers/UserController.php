@@ -46,6 +46,14 @@ class UserController extends Controller
         $user->level_id = $request->level_id;
 
         $user->save();
+
+        return redirect('user');
+    }
+
+    public function hapus($id)
+    {
+        $user = UserModel::find($id);
+        $user->delete();
         
         return redirect('user');
     }
