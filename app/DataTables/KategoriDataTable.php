@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Kategori;
+use App\Models\KategoriModel;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -22,14 +22,15 @@ class KategoriDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'kategori.action')
-            ->setRowId('id');
+            /* ->addColumn('action', 'kategori.action') */
+        ->setRowId('id');
     }
+
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Kategori $model): QueryBuilder
+    public function query(KategoriModel $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -67,11 +68,12 @@ class KategoriDataTable extends DataTable
                   ->printable(false)
                   ->width(60)
                   ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
+            Column::make('kategori_id'),
+            Column::make('kategori_kode'),
+            Column::make('kategori_nama'),
             Column::make('created_at'),
             Column::make('updated_at'),
-        ];
+        ];  
     }
 
     /**
