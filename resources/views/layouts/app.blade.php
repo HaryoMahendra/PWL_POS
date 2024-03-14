@@ -36,7 +36,7 @@
 
 @section('footer')
     <div class="float-right">
-            Version: {{ config('app.version', '1.0.0') }}
+        Version: {{ config('app.version', '1.0.0') }}
     </div>
 
     <strong>
@@ -59,7 +59,7 @@
 
 @push('css')
 
-<link rel="stylesheet"href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
+<link rel="stylesheet" href="https://cdn.datatables.net/2.0.2/css/dataTables.dataTables.css" />
 
 <style type="text/css">
 
