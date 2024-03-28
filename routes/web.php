@@ -16,7 +16,7 @@ Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit']);
 Route::get('/kategori', [KategoriController::class, 'index']);
 
 Route::group(['prefix' => 'user'], function () {
-    Route::get('/user', [UserController::class, 'index']);  //menampilkan halaman awal user
+    Route::get('/', [UserController::class, 'index']);  //menampilkan halaman awal user
     Route::post('/list', [UserController::class, 'list']);  //menampilkan data user dalam benttuk json untuk datatables
     Route::get('/create', [UserController::class, 'create']); //menampilkan halaman form tambah user
     Route::post('/', [UserController::class, 'store']); //menyimpan data user baru

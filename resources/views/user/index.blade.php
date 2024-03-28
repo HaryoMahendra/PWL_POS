@@ -38,7 +38,7 @@
                 },
                 columns: [{
                     data: "DT_RowIndex", // nomor urut dari laravel datatable
-                    addIndexColumn()
+                    // addIndexColumn()
                     className: "text-center",
                     orderable: false,
                     searchable: false
