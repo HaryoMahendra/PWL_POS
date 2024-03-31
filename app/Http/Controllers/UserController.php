@@ -63,6 +63,24 @@ class UserController extends Controller
         return redirect('/user')->with('success', 'Data user berhasil disimpan');
     }   
 
+    public function show(string $id)
+    {
+        $user =  UserModel::with('level')->find($id);
+
+        $breadcrumb = (object) [
+            'title' => 'Detail User',
+            'list'  => ['Home', 'User', 'Detail']
+        ];
+        
+        $page = (object) [
+            'title' => 'Detail user'
+        ];
+
+        $activeMenu = 'user'; //set menu yang sedang aktif  
+
+        return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
+    }
+
     public function tambah_simpan(Request $request)
     {
         UserModel::create([
