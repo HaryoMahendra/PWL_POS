@@ -81,6 +81,44 @@ class UserController extends Controller
         return view('user.show', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'activeMenu' => $activeMenu]);
     }
 
+    public function edit(string $id)
+    {
+        $user =  UserModel::find($id);
+        $level = LevelModel::all(); //ambil data level untuk ditampilkan di form
+
+        $breadcrumb = (object) [
+            'title' => 'Edit User',
+            'list'  => ['Home', 'User', 'Edit']
+        ];
+        
+        $page = (object) [
+            'title' => 'Edit user'
+        ];
+
+        $activeMenu = 'user'; //set menu yang sedang aktif  
+
+        return view('user.edit', ['breadcrumb' => $breadcrumb, 'page' => $page, 'user' => $user, 'level' => $level, 'activeMenu' => $activeMenu]);
+    }
+
+    public function update(Request $request, string $id)
+    {
+        $request->validate([
+            'username' => 'required|string|min:3|unique:m_user,username,'.$id.',user_id', //username harus diisi, harus string, minimal 3 karakter, dan harus unik di tabel m_user kecuali untuk data dengan id tertentu
+            'nama' => 'required|string|max:100', //nama harus diisi, harus string, dan maksimal 100 karakter
+            'password' => 'nullable|min:5', //password boleh diisi atau tidak, jika diisi minimal 5 karakter
+            'level_id' => 'required|integer' //level_id harus diisi dan harus angka
+        ]);
+
+        $user = UserModel::find($id)->update([
+            'username' => $request->username,
+            'nama' => $request->nama,
+            'password' => $request->password ? bcrypt($request->password) : UserModel::find($id)->password,
+            'level_id' => $request->level_id
+        ]);
+
+        return redirect('/user')->with('success', 'Data user berhasil diubah');
+    }
+
     public function tambah_simpan(Request $request)
     {
         UserModel::create([
