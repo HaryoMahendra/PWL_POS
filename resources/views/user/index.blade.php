@@ -61,8 +61,7 @@
                     data: "aksi",
                     className: "",
                     orderable: false, // orderable: true, jika ingin kolom ini bisa diurutkan
-                    searchable: false // searchable: true, jika ingin kolom ini bisa
-                    dicari
+                    searchable: false // searchable: true, jika ingin kolom ini bisa dicari
                 }]
             });
         });
