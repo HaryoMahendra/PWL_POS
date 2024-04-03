@@ -122,7 +122,7 @@ class UserController extends Controller
     public function destroy (string $id)
     {
         $check = UserModel::find($id);
-        if ($check) { //utuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
+        if (!$check) { //untuk mengecek apakah data user dengan id yang dimaksud ada atau tidak
             return redirect('/user')->with('error', 'Data user tidak ditemukan');
         }
 
@@ -165,14 +165,6 @@ class UserController extends Controller
 
         $user->save();
 
-        return redirect('user');
-    }
-
-    public function hapus($id)
-    {
-        $user = UserModel::find($id);
-        $user->delete();
-        
         return redirect('user');
     }
 
