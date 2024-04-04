@@ -38,9 +38,9 @@
             <table class="table-bordered table-striped table-hover table-sm table" id="table_level">
                 <thead>
                     <tr>
-                        <th>level ID</th>
-                        <th>level Kode</th>
-                        <th>level Nama</th>
+                        <th>ID</th>
+                        <th>Kode Level</th>
+                        <th>Nama Level</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>

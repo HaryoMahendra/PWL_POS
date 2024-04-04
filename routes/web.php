@@ -9,11 +9,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index']);
 
-Route::get('/level', [LevelController::class, 'index']);
-Route::get('/kategori/create', [KategoriController::class, 'create']);  
-Route::post('/kategori', [KategoriController::class, 'store']);
-Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit']);
-Route::get('/kategori', [KategoriController::class, 'index']);
+// Route::get('/level', [LevelController::class, 'index']);
+// Route::get('/kategori/create', [KategoriController::class, 'create']);  
+// Route::post('/kategori', [KategoriController::class, 'store']);
+// Route::get('/kategori/edit/{id}', [KategoriController::class, 'edit']);
+// Route::get('/kategori', [KategoriController::class, 'index']);
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'index']);  //menampilkan halaman awal user
@@ -36,3 +36,15 @@ Route::group(['prefix' => 'level'], function () {
     Route::put('/{id}', [LevelController::class, 'update']); //menyimppan perubahan data user
     Route::delete('/{id}', [LevelController::class, 'destroy']); //menghapus data user
 });
+
+Route::group(['prefix' => 'kategori'], function () {
+    Route::get('/', [KategoriController::class, 'index']);  //menampilkan halaman awal user
+    Route::post('/list', [KategoriController::class, 'list']);  //menampilkan data user dalam benttuk json untuk datatables
+    Route::get('/create', [KategoriController::class, 'create']); //menampilkan halaman form tambah user
+    Route::post('/', [KategoriController::class, 'store']); //menyimpan data user baru
+    Route::get('/{id}', [KategoriController::class, 'show']);   //menampilkan detail user    
+    Route::get('/{id}/edit', [KategoriController::class,'edit']); //menampilkan halaman form edit user
+    Route::put('/{id}', [KategoriController::class, 'update']); //menyimppan perubahan data user
+    Route::delete('/{id}', [KategoriController::class, 'destroy']); //menghapus data user
+});
+
