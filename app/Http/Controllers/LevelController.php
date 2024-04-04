@@ -48,4 +48,21 @@ class LevelController extends Controller
             ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
             ->make(true);
     }
+
+    public function create()
+    {
+        $breadcrumb = (object) [
+            'title' => 'Tambah level',
+            'list'  => ['Home', 'Level', 'Tambah']
+        ];
+
+        $page = (object) [
+            'title' => 'Tambah level baru'
+        ];
+
+        $level = LevelModel::all(); //ambil data level untuk ditampilkan di form
+        $activeMenu = 'level'; //set menu yang sedang aktif  
+
+        return view('level.create', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]); 
+    }
 }
