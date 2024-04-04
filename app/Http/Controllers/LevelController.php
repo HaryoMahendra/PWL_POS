@@ -2,23 +2,50 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LevelModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+Use Yajra\DataTables\Facades\DataTables;
 
 class LevelController extends Controller
 {
     public function index()
     {
-        //DB::insert('insert into m_level(level_kode, level_nama, created_at) values(?, ?, ?)', ['CUS', 'Pelanggan', now()]);
-        //return 'Insert data baru berhasil';
+        $breadcrumb = (object) [
+            'title' => 'Daftar Level',
+            'list'  => ['Home', 'Level']
+           ];
+    
+           $page = (object) [
+            'title' => 'Daftar level yang terdaftar dalam sistem'
+           ];
+    
+           $activeMenu = 'level'; //set menu yang sedang aktif
+    
+           $level = LevelModel::all(); //ambil data level untuk filter level
+    
+           return view('level.index', ['breadcrumb' => $breadcrumb, 'page' => $page, 'level' => $level, 'activeMenu' => $activeMenu]);
+        }
+    
+    public function list(Request $request){
+        $level = LevelModel::select('user_id', 'username', 'nama', 'level_id') 
+                ->with('level');
 
-        //$row = DB::update('update m_level set level_nama = ? where level_kode = ?', ['Customer', 'CUS']);
-        //return 'Update data berhasil. Jumlah data yang diupdate: '.$row.' data';
+        // Filter data user berdasrkan level_id
+        if ($request->level_id) {
+            $level->where('level_id', $request->level_id);
+        }
 
-        //$row = Db::delete('delete from m_level where level_kode = ?', ['CUS']); 
-        //return 'Delete data berhasil. Jumlah data yang dihapus: '.$row.' data'; 
-
-        $data = DB::select('select * from m_level');
-        return view('level', ['data' => $data]);
-    }       
+        return DataTables::of($level)
+            ->addIndexColumn() // menambahkan kolom index / no urut (default nama kolom: DT_RowIndex)
+            ->addColumn('aksi', function ($level) { // menambahkan kolom aksi
+                $btn = '<a href="'.url('/level/' . $level->level_id).'" class="btn btn-info btn-sm">Detail</a> ';
+                $btn .= '<a href="'.url('/level/' . $level->level_id . '/edit').'"
+                class="btn btn-warning btn-sm">Edit</a> ';
+                $btn .= '<form class="d-inline-block" method="POST" action="'. url('/user/'.$level->level_id).'">' . csrf_field() . method_field('DELETE') . '<button type="submit" class="btn btn-danger btn-sm" onclick="return confirm(\'Apakah Anda yakit menghapus data ini?\');">Hapus</button></form>';
+                return $btn;
+        })
+            ->rawColumns(['aksi']) // memberitahu bahwa kolom aksi adalah html
+            ->make(true);
+    }
 }
