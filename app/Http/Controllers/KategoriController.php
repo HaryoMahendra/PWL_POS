@@ -11,12 +11,12 @@ class KategoriController extends Controller
     public function index(KategoriDataTable $dataTable)
     {
         $breadcrumb = (object) [
-            'title' => 'Daftar Barang',
+            'title' => 'Daftar Kategori',
             'list' => ['Home', 'Kategori']
         ];
 
         $page = (object)[
-            'title' => 'Daftar barang yang terdaftar dalam sistem'
+            'title' => 'Daftar kategori yang terdaftar dalam sistem'
         ];
 
         $activeMenu = 'kategori';
