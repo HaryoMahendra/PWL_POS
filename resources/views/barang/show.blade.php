@@ -15,10 +15,6 @@
             @else
                 <table class="table-bordered table-striped table-hover sm table table">
                     <tr>
-                        <th>Kategori ID</th>
-                        <td>{{ $barang->barang_id }}</td>
-                    </tr>
-                    <tr>
                         <th>ID Barang</th>
                         <td>{{ $barang->barang_id }}</td>
                     </tr>

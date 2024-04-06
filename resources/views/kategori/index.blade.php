@@ -38,7 +38,7 @@
             <table class="table-bordered table-striped table-hover table-sm table" id="table_kategori">
                 <thead>
                     <tr>
-                        <th>Kategori ID</th>
+                        <th>ID</th>
                         <th>Kategori Kode</th>
                         <th>Kategori Nama</th>
                         <th>Aksi</th>
