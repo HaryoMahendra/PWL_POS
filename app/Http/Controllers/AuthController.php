@@ -22,7 +22,7 @@ class AuthController extends Controller
                 return redirect()->intended('admin');
             }
             // jika user nya memiliki level manger
-            if ($user->level_id == 2){
+            else if ($user->level == '2'){
                 return redirect()->intended('manager');
             }
         }
@@ -39,17 +39,21 @@ class AuthController extends Controller
         ]);
 
         // kita ambil data username & password lalu simpan pada variable $credentials
-        $credentials = $request->only('username', 'password');
+        $credential = $request->only('username', 'password');
         // cek jika data username dan password valid (sesuai) dengan data
-        if (Auth::attempt($credentials)) {
+        if (Auth::attempt($credential)) {
 
             // kalau berhasil simpan data user ya di variable $user
             $user = Auth::user();
 
             // cek lagi jika level user admin maka arahkan ke halaman admin
-            if ($user->level_id == 1){
+            if ($user->level_id == '1'){
                 //dd($user->level_id);
                 return redirect()->intended('admin');
+            }
+            // tapi jika level user nya user biasa maka arahkan ke halaman user
+            else if ($user->level_id == '2'){
+                return redirect()->intended('manager');
             }
             // jika belum ada role maka ke halaman /
             return redirect()->intended('/');
@@ -57,8 +61,8 @@ class AuthController extends Controller
         // jika ga ada data user yang valid maka kembalikan lagi ke halaman login
         // pastikan kirim pesan error juga kalau login gagal ya
         return redirect('login')
-        ->withInput()
-        ->withErrors(['lohin_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
+            ->withInput()
+            ->withErrors(['login_gagal' => 'Pastikan kembali username dan password yang dimasukkan sudah benar']);
     }
 
     public function register()
@@ -87,14 +91,14 @@ class AuthController extends Controller
         }
         
         //kalau berhasil isi level & hash passwordnya biar secure
-        $request['level_id'] = 2;
-        $request['password'] = Hash::make($request['password']);
+        $request['level_id'] = '2';
+        $request['password'] = Hash::make($request->password);
 
         //masukkan semua data pada request ke table user
         UserModel::create($request->all());
 
         //kalau berhasil arahkan ke halaman login
-        return redirect('login');
+        return redirect()->route('login');
     }
 
     public function logout(Request $request)
@@ -106,7 +110,7 @@ class AuthController extends Controller
         Auth::logout();
 
         //kembalikan ke halaman login
-        return redirect('login');
+        return Redirect('login');
     }
 }
 

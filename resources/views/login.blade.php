@@ -48,7 +48,7 @@
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
-            @enderror">
+            @enderror
         </div>
 
         {{-- Password field --}}
@@ -94,7 +94,7 @@
 @stop
 
 @section('auth_footer')
-    @if (register_url)
+    @if ($register_url)
         <p  class="my-0">
             <a href="{{ route('register') }}">
                 {{ __('adminlte::adminlte.register_a_new_membership') }}
