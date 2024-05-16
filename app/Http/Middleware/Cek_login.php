@@ -16,22 +16,20 @@ class Cek_login
      */
     public function handle(Request $request, Closure $next, $roles): Response
     {
-        //cek sudah login atau belum, jika belum, kembali ke halaman login
-        if   (!Auth::check()) {
+        //cek sudah login atau belum, jika belum kembali ke halaman login
+        if (!Auth::check()) {
             return redirect('login');
-            // (!return redirect('login');
         }
-    
-        }
-        // simpan data user pada variable $user
+
+        //simpan data user pada variabel $user
         $user = Auth::user();
 
-        // jika user memiliki level sesuai pada kolom pada lanjutkan request
-        if ($user->level_id == $roles){
+        //jika user memiliki level sesuai pada kolom pada lanjutan request
+        if ($user->level_id == $roles) {
             return $next($request);
         }
 
-        // jika tidak memiliki akses maka kembalikan ke halaman login
-        return redirect('login')->with('error', 'Maaf anda tidak memiliki akses');
+        //jika tidak memiliki akses maka kemalikan ke halamn login
+        return redirect('login')->with('error', 'Maaf Anda tidak memiliki akses');
     }
 }
