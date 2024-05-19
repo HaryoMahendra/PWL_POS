@@ -12,10 +12,11 @@ class RegisterController extends Controller
     public function __invoke(Request $request)
     {
         $validator = Validator::make($request->all(),[
-            'username' => 'required',
-            'nama' => 'required',
-            'password' => 'required|min:5|confirmed',
-            'level_id' => 'required'
+            'username'  => 'required',
+            'nama'      => 'required',
+            'password'  => 'required|min:5|confirmed',
+            'level_id'  => 'required',
+            'image'     => 'required',
         ]);
         
         if($validator->fails()){
@@ -26,7 +27,8 @@ class RegisterController extends Controller
             'username' => $request->username,
             'nama' => $request->nama,
             'password' => bcrypt($request->password),
-            'level_id' => $request->level_id
+            'level_id' => $request->level_id,
+            'image' => $request->image,
         ]);
         
         if($user){
